@@ -3,7 +3,7 @@
 	<id>8A4E6F20-9C3B-4D1E-A7B2-5112005A5854</id>
 	<name>PLUGIN_ZXTUNE</name>
 	<module>Plugins::ZXTune::Plugin</module>
-	<version>1.0.5130</version>
+	<version>0.1.0</version>
 	<description>PLUGIN_ZXTUNE_DESC</description>
 	<creator>Vitamin/CAIG (ZXTune), Piernik-cpu &amp; Antigravity (Google DeepMind AI)</creator>
 	<homepageURL>https://github.com/Piernik-cpu/lms-zxtune</homepageURL>
