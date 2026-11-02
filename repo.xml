@@ -5,13 +5,13 @@
     <title lang="IT">Repository Plugin ZXTune per Daphile / Lyrion Music Server</title>
   </details>
   <plugins>
-    <plugin name="ZXTune" version="1.0.5130" minTarget="7.9.0" maxTarget="*">
-      <title lang="EN">ZXTune - Chiptune, Tracker &amp; Video Game Music Player</title>
-      <title lang="IT">ZXTune - Lettore Chiptune, Tracker e Musica per Videogiochi</title>
-      <desc lang="EN">Full port of ZXTune (r5112) for Daphile / Lyrion Music Server. Plays 120+ chiptune, tracker, and videogame music formats (ZX Spectrum AY/YM, C64 SID, NES NSF/NSFE, SNES SPC/RSN, GameBoy GBS, Genesis/Master System VGM/VGZ, PC Engine HES, MSX KSS, Atari SAP, PlayStation PSF/USF/GSF/2SF/SSF/DSF, Amiga MOD/XM/IT/S3M/AHX/HVL, archives .zip/.7z/.rar/.lha/.trd/.scl), streams Random Radio, and browses 14 online catalogues (ModArchive, ModLand, HVSC, ASMA, VGMRips, Khinsider, OCReMix, JoshW, ZX-Art, ZXTunes, AMP, Aminet, Scene.org, AYGOR).</desc>
-      <desc lang="IT">Port completo di ZXTune (r5112) per Daphile / Lyrion Music Server. Riproduce oltre 120 formati chiptune, tracker e musica per videogiochi, archivi multi-traccia, radio casuale e 14 cataloghi online (ModArchive, ModLand, HVSC, ASMA, VGMRips, Khinsider, OCReMix, JoshW, ZX-Art, ZXTunes, AMP, Aminet, Scene.org, AYGOR).</desc>
-      <url>https://github.com/Piernik-cpu/lms-zxtune/releases/download/v1.0.5130/ZXTune.zip</url>
-      <sha>200af660d607bcb48dbb744332ef31115bedf53a</sha>
+    <plugin name="ZXTune" version="0.1.0" minTarget="7.9.0" maxTarget="*">
+      <title lang="EN">ZXTune - Chiptune, Tracker &amp; Video Game Music Player (Early Alpha)</title>
+      <title lang="IT">ZXTune - Lettore Chiptune, Tracker e Musica per Videogiochi (Alpha Preliminare)</title>
+      <desc lang="EN">[Early Alpha / Work in Progress] Experimental port of ZXTune (r5112) for Daphile / Lyrion Music Server. Plays chiptune, tracker, and videogame music formats (ZX Spectrum AY/YM, C64 SID, NES NSF/NSFE, SNES SPC/RSN, GameBoy GBS, Genesis/Master System VGM/VGZ, PC Engine HES, MSX KSS, Atari SAP, PlayStation PSF/USF/GSF/2SF/SSF/DSF, Amiga MOD/XM/IT/S3M/AHX/HVL, archives .zip/.7z/.rar/.lha/.trd/.scl), streams Random Radio, and browses online catalogues (ModArchive, ModLand, HVSC, ASMA, VGMRips, Khinsider, OCReMix, JoshW, ZX-Art, ZXTunes, AMP, Aminet, Scene.org, AYGOR). Note: Early-stage work in progress; some features and online catalogues are still under active testing.</desc>
+      <desc lang="IT">[Alpha Preliminare / In Sviluppo] Port sperimentale di ZXTune (r5112) per Daphile / Lyrion Music Server. Riproduce formati chiptune, tracker e musica per videogiochi, archivi multi-traccia, radio casuale e cataloghi online (ModArchive, ModLand, HVSC, ASMA, VGMRips, Khinsider, OCReMix, JoshW, ZX-Art, ZXTunes, AMP, Aminet, Scene.org, AYGOR). Nota: progetto in fase preliminare di sviluppo; alcune funzioni sono ancora in fase di test.</desc>
+      <url>https://github.com/Piernik-cpu/lms-zxtune/releases/download/v0.1.0/ZXTune.zip</url>
+      <sha>b9744583063b8d3930b0173068916b19af0f8a99</sha>
       <link>https://github.com/Piernik-cpu/lms-zxtune</link>
       <creator>Vitamin/CAIG (ZXTune), Piernik-cpu &amp; Antigravity (Google DeepMind AI)</creator>
       <category>musicservices</category>
