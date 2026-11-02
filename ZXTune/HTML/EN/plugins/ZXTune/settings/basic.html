@@ -1,0 +1,126 @@
+[% PROCESS settings/header.html %]
+
+	[% WRAPPER setting title="PLUGIN_ZXTUNE_SETTINGS_LOCAL_MUSIC_DIR" desc="PLUGIN_ZXTUNE_SETTINGS_LOCAL_MUSIC_DIR_DESC" %]
+		<input type="text" class="stdedit selectFolder" name="pref_local_music_dir" id="local_music_dir" value="[% prefs.pref_local_music_dir | html %]" size="50" />
+	[% END %]
+
+	[% WRAPPER setting title="PLUGIN_ZXTUNE_SETTINGS_SAMPLERATE" desc="" %]
+		<select class="stdedit" name="pref_samplerate" id="samplerate">
+			<option [% IF prefs.pref_samplerate == 44100 %]selected [% END %]value="44100">44100 Hz (CD Quality)</option>
+			<option [% IF prefs.pref_samplerate == 48000 %]selected [% END %]value="48000">48000 Hz (Studio Default)</option>
+			<option [% IF prefs.pref_samplerate == 88200 %]selected [% END %]value="88200">88200 Hz (Hi-Res 2x)</option>
+			<option [% IF prefs.pref_samplerate == 96000 %]selected [% END %]value="96000">96000 Hz (Hi-Res)</option>
+		</select>
+	[% END %]
+
+	[% WRAPPER setting title="PLUGIN_ZXTUNE_SETTINGS_LOOPMODE" desc="" %]
+		<select class="stdedit" name="pref_loopmode" id="loopmode">
+			<option [% IF prefs.pref_loopmode == 0 %]selected [% END %]value="0">Play Once (Advance to Next Track)</option>
+			<option [% IF prefs.pref_loopmode == 1 %]selected [% END %]value="1">Loop Track</option>
+		</select>
+	[% END %]
+
+	[% WRAPPER setting title="PLUGIN_ZXTUNE_SETTINGS_DEFAULT_DURATION" desc="" %]
+		<input type="text" class="stdedit" name="pref_default_duration" id="default_duration" value="[% prefs.pref_default_duration | html %]" size="8" />
+	[% END %]
+
+	[% WRAPPER setting title="PLUGIN_ZXTUNE_SETTINGS_AYM_TYPE" desc="" %]
+		<select class="stdedit" name="pref_aym_type" id="aym_type">
+			<option [% IF prefs.pref_aym_type == 0 %]selected [% END %]value="0">AY-3-8910 / AY-3-8912 (General Instrument)</option>
+			<option [% IF prefs.pref_aym_type == 1 %]selected [% END %]value="1">YM2149F (Yamaha)</option>
+		</select>
+	[% END %]
+
+	[% WRAPPER setting title="PLUGIN_ZXTUNE_SETTINGS_AYM_CLOCKRATE" desc="" %]
+		<select class="stdedit" name="pref_aym_clockrate" id="aym_clockrate">
+			<option [% IF prefs.pref_aym_clockrate == 1773400 %]selected [% END %]value="1773400">1773400 Hz (ZX Spectrum 128K)</option>
+			<option [% IF prefs.pref_aym_clockrate == 1750000 %]selected [% END %]value="1750000">1750000 Hz (Pentagon 128K)</option>
+			<option [% IF prefs.pref_aym_clockrate == 2000000 %]selected [% END %]value="2000000">2000000 Hz (Atari ST)</option>
+			<option [% IF prefs.pref_aym_clockrate == 1000000 %]selected [% END %]value="1000000">1000000 Hz (Amstrad CPC)</option>
+			<option [% IF prefs.pref_aym_clockrate == 3579545 %]selected [% END %]value="3579545">3579545 Hz (MSX)</option>
+		</select>
+	[% END %]
+
+	[% WRAPPER setting title="PLUGIN_ZXTUNE_SETTINGS_AYM_LAYOUT" desc="" %]
+		<select class="stdedit" name="pref_aym_layout" id="aym_layout">
+			<option [% IF prefs.pref_aym_layout == 0 %]selected [% END %]value="0">ABC Stereo</option>
+			<option [% IF prefs.pref_aym_layout == 1 %]selected [% END %]value="1">ACB Stereo</option>
+			<option [% IF prefs.pref_aym_layout == 2 %]selected [% END %]value="2">BAC Stereo</option>
+			<option [% IF prefs.pref_aym_layout == 3 %]selected [% END %]value="3">BCA Stereo</option>
+			<option [% IF prefs.pref_aym_layout == 4 %]selected [% END %]value="4">CBA Stereo</option>
+			<option [% IF prefs.pref_aym_layout == 5 %]selected [% END %]value="5">CAB Stereo</option>
+			<option [% IF prefs.pref_aym_layout == 6 %]selected [% END %]value="6">Mono</option>
+		</select>
+	[% END %]
+
+	[% WRAPPER setting title="PLUGIN_ZXTUNE_SETTINGS_AYM_INTERPOLATION" desc="" %]
+		<select class="stdedit" name="pref_aym_interpolation" id="aym_interpolation">
+			<option [% IF prefs.pref_aym_interpolation == 0 %]selected [% END %]value="0">None (Raw / Crisp)</option>
+			<option [% IF prefs.pref_aym_interpolation == 1 %]selected [% END %]value="1">Performance (Fast)</option>
+			<option [% IF prefs.pref_aym_interpolation == 2 %]selected [% END %]value="2">High Quality (Bandlimited)</option>
+		</select>
+	[% END %]
+
+	[% WRAPPER setting title="PLUGIN_ZXTUNE_SETTINGS_AYM_TABLE" desc="" %]
+		<select class="stdedit" name="pref_aym_table" id="aym_table">
+			<option [% IF prefs.pref_aym_table == '' %]selected [% END %]value="">Module Default (Auto)</option>
+			<option [% IF prefs.pref_aym_table == 'soundtracker' %]selected [% END %]value="soundtracker">SoundTracker</option>
+			<option [% IF prefs.pref_aym_table == 'protracker2' %]selected [% END %]value="protracker2">ProTracker 2</option>
+			<option [% IF prefs.pref_aym_table == 'protracker3_3' %]selected [% END %]value="protracker3_3">ProTracker 3.3</option>
+			<option [% IF prefs.pref_aym_table == 'protracker3_4' %]selected [% END %]value="protracker3_4">ProTracker 3.4</option>
+			<option [% IF prefs.pref_aym_table == 'asm' %]selected [% END %]value="asm">ASC Sound Master</option>
+			<option [% IF prefs.pref_aym_table == 'fasttracker' %]selected [% END %]value="fasttracker">FastTracker</option>
+			<option [% IF prefs.pref_aym_table == 'natural' %]selected [% END %]value="natural">Natural</option>
+		</select>
+	[% END %]
+
+	[% WRAPPER setting title="PLUGIN_ZXTUNE_SETTINGS_AYM_DUTY_CYCLE" desc="" %]
+		<input type="text" class="stdedit" name="pref_aym_duty_cycle" id="aym_duty_cycle" value="[% prefs.pref_aym_duty_cycle | html %]" size="6" />
+	[% END %]
+
+	[% WRAPPER setting title="PLUGIN_ZXTUNE_SETTINGS_DAC_INTERPOLATION" desc="" %]
+		<select class="stdedit" name="pref_dac_interpolation" id="dac_interpolation">
+			<option [% IF prefs.pref_dac_interpolation == 1 %]selected [% END %]value="1">Enabled</option>
+			<option [% IF prefs.pref_dac_interpolation == 0 %]selected [% END %]value="0">Disabled</option>
+		</select>
+	[% END %]
+
+	[% WRAPPER setting title="PLUGIN_ZXTUNE_SETTINGS_FM_CLOCKRATE" desc="" %]
+		<input type="text" class="stdedit" name="pref_fm_clockrate" id="fm_clockrate" value="[% prefs.pref_fm_clockrate | html %]" size="10" />
+	[% END %]
+
+	[% WRAPPER setting title="PLUGIN_ZXTUNE_SETTINGS_SAA_CLOCKRATE" desc="" %]
+		<input type="text" class="stdedit" name="pref_saa_clockrate" id="saa_clockrate" value="[% prefs.pref_saa_clockrate | html %]" size="10" />
+	[% END %]
+
+	[% WRAPPER setting title="PLUGIN_ZXTUNE_SETTINGS_SAA_INTERPOLATION" desc="" %]
+		<select class="stdedit" name="pref_saa_interpolation" id="saa_interpolation">
+			<option [% IF prefs.pref_saa_interpolation == 0 %]selected [% END %]value="0">None</option>
+			<option [% IF prefs.pref_saa_interpolation == 1 %]selected [% END %]value="1">Performance</option>
+			<option [% IF prefs.pref_saa_interpolation == 2 %]selected [% END %]value="2">High Quality</option>
+		</select>
+	[% END %]
+
+	[% WRAPPER setting title="PLUGIN_ZXTUNE_SETTINGS_UNPACK_ARCHIVES" desc="" %]
+		<select class="stdedit" name="pref_unpack_archives" id="unpack_archives">
+			<option [% IF prefs.pref_unpack_archives == 1 %]selected [% END %]value="1">Enabled (List Subsongs & Archive Contents)</option>
+			<option [% IF prefs.pref_unpack_archives == 0 %]selected [% END %]value="0">Disabled (Play First Track Only)</option>
+		</select>
+	[% END %]
+
+	[% WRAPPER setting title="PLUGIN_ZXTUNE_SETTINGS_AUTO_ONLINE_COVER" desc="" %]
+		<select class="stdedit" name="pref_auto_online_cover" id="auto_online_cover">
+			<option [% IF prefs.pref_auto_online_cover == 1 %]selected [% END %]value="1">Enabled (Local Images + Online Cover Art Lookup)</option>
+			<option [% IF prefs.pref_auto_online_cover == 0 %]selected [% END %]value="0">Offline Only (Local Folder Images Only)</option>
+		</select>
+	[% END %]
+
+	[% WRAPPER setting title="PLUGIN_ZXTUNE_SETTINGS_MODARCHIVE_KEY" desc="" %]
+		<input type="text" class="stdedit" name="pref_modarchive_key" id="modarchive_key" value="[% prefs.pref_modarchive_key | html %]" size="40" />
+	[% END %]
+
+	[% WRAPPER setting title="PLUGIN_ZXTUNE_SETTINGS_CACHE_MAX_MB" desc="" %]
+		<input type="text" class="stdedit" name="pref_cache_max_mb" id="cache_max_mb" value="[% prefs.pref_cache_max_mb | html %]" size="8" />
+	[% END %]
+
+[% PROCESS settings/footer.html %]
