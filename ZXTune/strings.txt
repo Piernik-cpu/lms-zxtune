@@ -1,10 +1,10 @@
 PLUGIN_ZXTUNE
-	EN	ZXTune Chiptune & VGM Player
-	IT	ZXTune Chiptune & VGM Player
+	EN	ZXTune Chiptune & VGM Player (Alpha)
+	IT	ZXTune Chiptune & VGM Player (Alpha)
 
 PLUGIN_ZXTUNE_DESC
-	EN	Complete port of ZXTune (r5112) for Daphile / Lyrion Music Server (LMS): decodes hundreds of chiptune, tracker, and videogame music formats, unpacks multi-track containers & archives, streams Random Radio feeds, and browses all 14 online chiptune/VGM catalogues (ZXTunes, ZXArt, ModArchive, ModLand, HVSC, ASMA, AYGOR, JoshW, AMP, Aminet, Scene.org, VGMRips, Khinsider, OCReMix).
-	IT	Porting completo di ZXTune (r5112) per Daphile / Lyrion Music Server (LMS): decodifica centinaia di formati chiptune, tracker e musica per videogiochi, esplora archivi multi-traccia, riproduce flussi Radio casuali e naviga in tutti i 14 cataloghi online (ZXTunes, ZXArt, ModArchive, ModLand, HVSC, ASMA, AYGOR, JoshW, AMP, Aminet, Scene.org, VGMRips, Khinsider, OCReMix).
+	EN	[Early Alpha / Work in Progress] Experimental port of ZXTune (r5112) for Daphile / Lyrion Music Server (LMS): decodes chiptune, tracker, and videogame music formats, unpacks multi-track archives, streams Random Radio feeds, and browses online chiptune/VGM catalogues (ZXTunes, ZXArt, ModArchive, ModLand, HVSC, ASMA, AYGOR, JoshW, AMP, Aminet, Scene.org, VGMRips, Khinsider, OCReMix). Some features and online catalogues are still under active development and testing.
+	IT	[Alpha Preliminare / In Sviluppo] Port sperimentale di ZXTune (r5112) per Daphile / Lyrion Music Server (LMS): decodifica formati chiptune, tracker e musica per videogiochi, esplora archivi multi-traccia, riproduce flussi Radio casuali e naviga nei cataloghi online (ZXTunes, ZXArt, ModArchive, ModLand, HVSC, ASMA, AYGOR, JoshW, AMP, Aminet, Scene.org, VGMRips, Khinsider, OCReMix). Alcune funzioni e cataloghi sono ancora in fase di sviluppo e test.
 
 PLUGIN_ZXTUNE_MENU_CATALOGS
 	EN	Online Catalogues
