@@ -1,0 +1,302 @@
+#!/usr/bin/env perl
+#
+# zxtune-play - LMS / Daphile streaming wrapper for zxtune123
+# Renders chiptunes, tracker modules, and videogame music to stdout (WAV/FLAC/MP3)
+# with support for container subpaths (?subpath), remote URLs, and sample-accurate seeking.
+#
+
+use strict;
+use warnings;
+use FindBin;
+use File::Spec;
+use File::Temp qw(tempdir);
+use URI::Escape qw(uri_unescape);
+
+binmode(STDOUT);
+
+my $format   = 'wav';
+my $bitrate  = 192;
+my $startSec = 0;
+my $input    = '';
+
+while (@ARGV) {
+    my $arg = shift @ARGV;
+    if ($arg eq '--format' && @ARGV) {
+        $format = lc(shift @ARGV);
+    } elsif ($arg =~ /^--format=(.+)$/) {
+        $format = lc($1);
+    } elsif ($arg eq '--bitrate' && @ARGV) {
+        $bitrate = int(shift @ARGV);
+    } elsif ($arg =~ /^--bitrate=(\d+)/) {
+        $bitrate = int($1);
+    } elsif ($arg eq '--start' && @ARGV) {
+        $startSec = shift(@ARGV) + 0;
+    } elsif ($arg =~ /^--start=([0-9.]+)/) {
+        $startSec = $1 + 0;
+    } elsif ($arg =~ /^-/ && !$input) {
+        # Ignore unknown flags
+    } else {
+        $input = $arg;
+    }
+}
+
+exit 1 unless defined $input && length $input;
+$input =~ s/^["']+|["']+$//g;
+
+# Locate zxtune123 binary
+my $binDir = $FindBin::RealBin || $FindBin::Bin;
+my $zxtune = File::Spec->catfile($binDir, 'zxtune123');
+if (!-f $zxtune) {
+    my $alt = File::Spec->catfile($binDir, '..', 'x86_64-linux', 'zxtune123');
+    $zxtune = $alt if -f $alt;
+}
+if (-f $zxtune && !-x $zxtune) {
+    chmod 0755, $zxtune;
+}
+
+# Create per-process RAM temp directory in /tmp
+my $tmpBase = (-d '/dev/shm' && -w '/dev/shm') ? '/dev/shm' : '/tmp';
+my $workDir = tempdir("zxtune_lms_XXXXXX", DIR => $tmpBase, CLEANUP => 1);
+
+$SIG{INT}  = sub { File::Temp::cleanup(); exit 0; };
+$SIG{TERM} = sub { File::Temp::cleanup(); exit 0; };
+$SIG{PIPE} = sub { File::Temp::cleanup(); exit 0; };
+
+# Parse input (can be local path, file:// URL, or zxtune:// URL)
+my $filePath  = '';
+my $subPath   = '';
+my $remoteUrl = '';
+
+if ($input =~ /^zxtune:\/\/(.*)$/i) {
+    my $rest = $1;
+    my $queryPart = '';
+    if ($rest =~ /^[^?\/]*\?(.*)$/) {
+        $queryPart = $1;
+    } elsif ($rest =~ /^[^\/]+\/(.*)$/) {
+        $queryPart = $1;
+    }
+    my %params;
+    if (defined $queryPart && length $queryPart) {
+        for my $pair (split(/[&;,~]/, $queryPart)) {
+            my ($k, $v) = split(/=/, $pair, 2);
+            next unless defined $k && length $k;
+            $params{uri_unescape($k)} = defined $v ? uri_unescape($v) : '';
+        }
+    }
+    $filePath  = $params{file}    || '';
+    $subPath   = $params{subpath} // '';
+    $remoteUrl = $params{url}     || '';
+} elsif ($input =~ /^file:\/\/(.*)$/i) {
+    my $rest = $1;
+    if ($rest =~ /^(.*?)\?(.*)$/) {
+        $filePath = uri_unescape($1);
+        $subPath  = uri_unescape($2);
+    } else {
+        $filePath = uri_unescape($rest);
+    }
+} else {
+    if (!-e $input && $input =~ /^(.*?)\?(.+)$/ && -e $1) {
+        $filePath = $1;
+        $subPath  = $2;
+    } else {
+        $filePath = $input;
+    }
+}
+
+# Clean up any accidental header placeholder
+$subPath = '' if $subPath =~ /^\[Subpath\]$/i;
+
+# If file is not local yet and we have a remote URL, download it to $workDir
+if ((!$filePath || !-e $filePath) && $remoteUrl) {
+    my $ext = 'dat';
+    if ($remoteUrl =~ /\.([a-zA-Z0-9]{2,8})(?:$|\?|\|)/) {
+        $ext = lc($1);
+    }
+    my $dlFile = File::Spec->catfile($workDir, "download.$ext");
+    my @urls = split(/\|/, $remoteUrl);
+    for my $u (@urls) {
+        next unless $u =~ /^https?:\/\//i;
+        my $rc = system('curl', '-f', '-s', '-L', '-k', '--max-time', '45', '-A', 'ZXTune/5112 LMS/1.0', '-o', $dlFile, $u);
+        if ($rc != 0 || !-s $dlFile) {
+            system('wget', '-q', '--no-check-certificate', '-T', '45', '-U', 'ZXTune/5112 LMS/1.0', '-O', $dlFile, $u);
+        }
+        if (-s $dlFile) {
+            # Verify downloaded file is not an HTML error page
+            if (open(my $chkFh, '<', $dlFile)) {
+                binmode($chkFh);
+                my $head = '';
+                read($chkFh, $head, 256);
+                close($chkFh);
+                if ($head =~ /^\s*<(?:!DOCTYPE\s+html|html|head|body)\b/i) {
+                    unlink($dlFile);
+                    next;
+                }
+            }
+            last;
+        }
+    }
+    $filePath = $dlFile if -s $dlFile;
+}
+
+exit 1 unless $filePath && -e $filePath;
+
+my $isStandardAudio = ($filePath =~ /\.(mp3|flac|ogg|wav|m4a)$/i && $subPath eq '') ? 1 : 0;
+
+# If no subpath is given and file is a multi-track container/archive, resolve first playable subpath
+if (!$isStandardAudio && $subPath eq '' && $filePath =~ /\.(zip|7z|rar|lha|lzh|rsn|trd|scl|fdi|dsk|hrip|ay|sid|psid|rsid|nsf|nsfe|gbs|sap|kss|hes|gz)$/i) {
+    my $idxFile = File::Spec->catfile($workDir, 'idx.txt');
+    system(
+        $zxtune,
+        '--silent',
+        '--core-options', 'zip.max_depacked_size_mb=512',
+        '--providers-options', 'file.overwrite=1,file.sanitize_names=0',
+        '--index', "filename=$idxFile,csv=[Subpath]",
+        $filePath
+    );
+    if (-s $idxFile && open(my $fh, '<', $idxFile)) {
+        while (my $line = <$fh>) {
+            $line =~ s/[\r\n]+$//;
+            next if !length($line) || $line =~ /^\[Subpath\]/i;
+            next if $line =~ /\.(?:psf\d*lib|usflib|gsflib|2sflib|3sflib|ssflib|dsflib|ncflib|snsflib|txt|nfo|diz|jpg|png|m3u)$/i;
+            $subPath = $line;
+            last;
+        }
+        close($fh);
+    }
+}
+
+# If seeking is requested ($startSec > 0), render to WAV first so we can slice at exact sample offset
+my $renderWavFirst = ($startSec > 0 || $format eq 'wav' || $format eq 'pcm') ? 1 : 0;
+my $outExt         = $renderWavFirst ? 'wav' : ($format eq 'mp3' ? 'mp3' : 'flac');
+my $outFile        = File::Spec->catfile($workDir, "out.$outExt");
+
+# Fast path: if input is already in the target standard audio format (.flac or .mp3) and no seek is requested
+if ($isStandardAudio && $startSec <= 0 && $filePath =~ /\.\Q$outExt\E$/i) {
+    $outFile = $filePath;
+} else {
+    my $targetSpec = length($subPath) ? "$filePath?$subPath" : $filePath;
+    my $confFile   = '/tmp/zxtune_lms.conf';
+    my @cmd        = ($zxtune, '--silent');
+    if (-r $confFile) {
+        push @cmd, ('--config', $confFile);
+    }
+    push @cmd, (
+        '--core-options', 'zip.max_depacked_size_mb=512',
+        '--providers-options', 'file.overwrite=1,file.sanitize_names=0'
+    );
+
+    if ($renderWavFirst) {
+        push @cmd, ('--wav', "filename=$outFile");
+    } elsif ($format eq 'mp3') {
+        my $br = ($bitrate && $bitrate >= 32 && $bitrate <= 320) ? $bitrate : 192;
+        push @cmd, ('--mp3', "filename=$outFile,bitrate=$br,mode=cbr");
+    } else {
+        push @cmd, ('--flac', "filename=$outFile,compression=5");
+    }
+
+    push @cmd, $targetSpec;
+    system(@cmd);
+}
+
+# Fallback if input is a standard audio file (e.g., Khinsider/OCReMix MP3/FLAC) not handled by zxtune123
+if (!-s $outFile && $subPath eq '') {
+    if ($filePath =~ /\.\Q$outExt\E$/i && $startSec <= 0) {
+        $outFile = $filePath;
+    } else {
+        for my $tool ('sox', 'ffmpeg') {
+            if ($tool eq 'sox') {
+                my @sox = ('sox', '-q', $filePath, $outFile);
+                push @sox, ('trim', $startSec) if $startSec > 0;
+                system(@sox) == 0 and -s $outFile and last;
+            } else {
+                my @ff = ('ffmpeg', '-v', 'quiet', '-y');
+                push @ff, ('-ss', $startSec) if $startSec > 0;
+                push @ff, ('-i', $filePath, $outFile);
+                system(@ff) == 0 and -s $outFile and last;
+            }
+        }
+        # Additional LMS / Daphile standard helper fallbacks (lame / mpg123 / madplay / flac)
+        if (!-s $outFile && $filePath =~ /\.mp3$/i) {
+            my $tmpWav = File::Spec->catfile($workDir, 'decoded.wav');
+            for my $dec (
+                [ 'lame', '--decode', '--silent', $filePath, $tmpWav ],
+                [ 'mpg123', '-q', '-w', $tmpWav, $filePath ],
+                [ 'madplay', '-Q', "-o", "wave:$tmpWav", $filePath ]
+            ) {
+                system(@$dec) == 0 and -s $tmpWav and last;
+            }
+            if (-s $tmpWav) {
+                if ($outExt eq 'wav') {
+                    $outFile = $tmpWav;
+                } elsif ($outExt eq 'flac') {
+                    system('flac', '--silent', '--compression-level-3', '-f', '-o', $outFile, $tmpWav);
+                }
+            }
+        } elsif (!-s $outFile && $filePath =~ /\.flac$/i && $outExt eq 'wav') {
+            system('flac', '-d', '--silent', '-f', '-o', $outFile, $filePath);
+        }
+        $startSec = 0 if -s $outFile && !$renderWavFirst;
+    }
+}
+
+exit 1 unless -s $outFile;
+
+# Stream output to STDOUT (with WAV byte-offset slicing when $startSec > 0)
+if ($renderWavFirst && $startSec > 0) {
+    if ($format eq 'flac') {
+        open(my $flacOut, '|-', 'flac', '--silent', '--compression-level-3', '-') or exit 1;
+        binmode($flacOut);
+        stream_wav_sliced($outFile, $startSec, $flacOut);
+        close($flacOut);
+        exit 0;
+    } elsif ($format eq 'mp3') {
+        my $br = ($bitrate && $bitrate >= 32 && $bitrate <= 320) ? $bitrate : 192;
+        open(my $lameOut, '|-', 'lame', '--silent', '-b', $br, '-', '-') or exit 1;
+        binmode($lameOut);
+        stream_wav_sliced($outFile, $startSec, $lameOut);
+        close($lameOut);
+        exit 0;
+    } else {
+        stream_wav_sliced($outFile, $startSec, \*STDOUT);
+        exit 0;
+    }
+}
+
+open(my $inFh, '<', $outFile) or exit 1;
+binmode($inFh);
+my $buf;
+while (read($inFh, $buf, 65536)) {
+    print STDOUT $buf or last;
+}
+close($inFh);
+exit 0;
+
+sub stream_wav_sliced {
+    my ($wavFile, $seekSec, $outHandle) = @_;
+    open(my $fh, '<', $wavFile) or return;
+    binmode($fh);
+    my $hdr = '';
+    read($fh, $hdr, 44) == 44 or do { close($fh); return; };
+
+    my ($riff, $chunkSize, $wave, $fmt, $sub1Size, $audioFmt, $numChan, $sampleRate, $byteRate, $blockAlign, $bitsPerSample, $dataTag, $dataSize)
+        = unpack('a4Va4a4VvvVVvva4V', $hdr);
+
+    if ($riff eq 'RIFF' && $wave eq 'WAVE' && $byteRate > 0 && $blockAlign > 0) {
+        my $skipBytes = int($seekSec * $byteRate);
+        $skipBytes -= ($skipBytes % $blockAlign);
+        if ($skipBytes > 0 && $skipBytes < $dataSize) {
+            my $newDataSize  = $dataSize - $skipBytes;
+            my $newChunkSize = $newDataSize + 36;
+            substr($hdr, 4, 4, pack('V', $newChunkSize));
+            substr($hdr, 40, 4, pack('V', $newDataSize));
+            seek($fh, 44 + $skipBytes, 0);
+        }
+    }
+
+    print $outHandle $hdr;
+    my $chunk;
+    while (read($fh, $chunk, 65536)) {
+        print $outHandle $chunk or last;
+    }
+    close($fh);
+}
