@@ -5,8 +5,8 @@
 	<module>Plugins::ZXTune::Plugin</module>
 	<version>1.0.5130</version>
 	<description>PLUGIN_ZXTUNE_DESC</description>
-	<creator>ZXTune (Vitamin/CAIG) / LMS Port</creator>
-	<homepageURL>https://zxtune.bitbucket.io/</homepageURL>
+	<creator>Vitamin/CAIG (ZXTune), Piernik-cpu &amp; Antigravity (Google DeepMind AI)</creator>
+	<homepageURL>https://github.com/Piernik-cpu/lms-zxtune</homepageURL>
 	<defaultState>enabled</defaultState>
 	<type>2</type>
 	<icon>plugins/ZXTune/html/images/icon.png</icon>
