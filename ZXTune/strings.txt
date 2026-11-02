@@ -1,0 +1,111 @@
+PLUGIN_ZXTUNE
+	EN	ZXTune Chiptune & VGM Player
+	IT	ZXTune Chiptune & VGM Player
+
+PLUGIN_ZXTUNE_DESC
+	EN	Complete port of ZXTune (r5112) for Daphile / Lyrion Music Server (LMS): decodes hundreds of chiptune, tracker, and videogame music formats, unpacks multi-track containers & archives, streams Random Radio feeds, and browses all 14 online chiptune/VGM catalogues (ZXTunes, ZXArt, ModArchive, ModLand, HVSC, ASMA, AYGOR, JoshW, AMP, Aminet, Scene.org, VGMRips, Khinsider, OCReMix).
+	IT	Porting completo di ZXTune (r5112) per Daphile / Lyrion Music Server (LMS): decodifica centinaia di formati chiptune, tracker e musica per videogiochi, esplora archivi multi-traccia, riproduce flussi Radio casuali e naviga in tutti i 14 cataloghi online (ZXTunes, ZXArt, ModArchive, ModLand, HVSC, ASMA, AYGOR, JoshW, AMP, Aminet, Scene.org, VGMRips, Khinsider, OCReMix).
+
+PLUGIN_ZXTUNE_MENU_CATALOGS
+	EN	Online Catalogues
+	IT	Cataloghi Online
+
+PLUGIN_ZXTUNE_MENU_RADIO
+	EN	Radio (Random Tunes & Compilations)
+	IT	Radio (Brani Casuali e Compilation)
+
+PLUGIN_ZXTUNE_MENU_LOCAL
+	EN	Local Chiptunes & Archives Browser
+	IT	Esplora File e Archivi Locali
+
+PLUGIN_ZXTUNE_MENU_SEARCH_ALL
+	EN	Global Chiptune Search
+	IT	Ricerca Globale Chiptune
+
+PLUGIN_ZXTUNE_SETTINGS_LOCAL_MUSIC_DIR
+	EN	Default Local Chiptunes Folder
+	IT	Cartella Locale Chiptune Predefinita
+
+PLUGIN_ZXTUNE_SETTINGS_LOCAL_MUSIC_DIR_DESC
+	EN	Select the folder where your chiptunes and videogame music files are stored (subfolders are automatically supported). You can also set this directly inside the Local Chiptunes Browser menu.
+	IT	Seleziona la cartella in cui sono archiviati i file chiptune e di musica per videogiochi (le sottocartelle sono supportate automaticamente). Puoi impostarla anche direttamente dal menu Esplora File Locali.
+
+PLUGIN_ZXTUNE_SETTINGS_AUDIO
+	EN	Audio & Rendering Settings
+	IT	Impostazioni Audio e Rendering
+
+PLUGIN_ZXTUNE_SETTINGS_SAMPLERATE
+	EN	Output Sample Rate (Hz)
+	IT	Frequenza di Campionamento (Hz)
+
+PLUGIN_ZXTUNE_SETTINGS_LOOPMODE
+	EN	Loop Mode
+	IT	Modalita Loop
+
+PLUGIN_ZXTUNE_SETTINGS_DEFAULT_DURATION
+	EN	Default Duration for Endless Tracks (seconds)
+	IT	Durata Predefinita per Brani Infiniti (secondi)
+
+PLUGIN_ZXTUNE_SETTINGS_AYM_HEADER
+	EN	AY-3-8910 / YM2149F Emulation Parameters
+	IT	Parametri Emulazione AY-3-8910 / YM2149F
+
+PLUGIN_ZXTUNE_SETTINGS_AYM_TYPE
+	EN	Chip Type
+	IT	Tipo di Chip
+
+PLUGIN_ZXTUNE_SETTINGS_AYM_CLOCKRATE
+	EN	AY/YM Clock Rate (Hz)
+	IT	Frequenza di Clock AY/YM (Hz)
+
+PLUGIN_ZXTUNE_SETTINGS_AYM_LAYOUT
+	EN	Stereo Channels Layout
+	IT	Disposizione Canali Stereo
+
+PLUGIN_ZXTUNE_SETTINGS_AYM_INTERPOLATION
+	EN	AY/YM Interpolation Quality
+	IT	Qualita Interpolazione AY/YM
+
+PLUGIN_ZXTUNE_SETTINGS_AYM_TABLE
+	EN	Frequency Table
+	IT	Tabella delle Frequenze
+
+PLUGIN_ZXTUNE_SETTINGS_AYM_DUTY_CYCLE
+	EN	Duty Cycle (%)
+	IT	Duty Cycle (%)
+
+PLUGIN_ZXTUNE_SETTINGS_DAC_HEADER
+	EN	DAC / FM / SAA1099 & Container Parameters
+	IT	Parametri DAC / FM / SAA1099 e Contenitori
+
+PLUGIN_ZXTUNE_SETTINGS_DAC_INTERPOLATION
+	EN	DAC Sample Interpolation
+	IT	Interpolazione Campioni DAC
+
+PLUGIN_ZXTUNE_SETTINGS_FM_CLOCKRATE
+	EN	YM2203 / TurboSound FM Clock Rate (Hz)
+	IT	Frequenza di Clock YM2203 / FM (Hz)
+
+PLUGIN_ZXTUNE_SETTINGS_SAA_CLOCKRATE
+	EN	Philips SAA1099 Clock Rate (Hz)
+	IT	Frequenza di Clock Philips SAA1099 (Hz)
+
+PLUGIN_ZXTUNE_SETTINGS_SAA_INTERPOLATION
+	EN	SAA1099 Interpolation Quality
+	IT	Qualita Interpolazione SAA1099
+
+PLUGIN_ZXTUNE_SETTINGS_UNPACK_ARCHIVES
+	EN	Unpack Multi-Track Containers & Archives
+	IT	Espandi Contenitori e Archivi Multi-Traccia
+
+PLUGIN_ZXTUNE_SETTINGS_AUTO_ONLINE_COVER
+	EN	Automatic Online Cover Art for Local Games
+	IT	Copertine Online Automatiche per Giochi Locali
+
+PLUGIN_ZXTUNE_SETTINGS_MODARCHIVE_KEY
+	EN	The Mod Archive API Key (optional, uses web parser if blank)
+	IT	Chiave API The Mod Archive (opzionale, usa il parser web se vuota)
+
+PLUGIN_ZXTUNE_SETTINGS_CACHE_MAX_MB
+	EN	Online Catalogue Audio Cache Limit (MB)
+	IT	Limite Cache Audio Cataloghi Online (MB)
