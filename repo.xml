@@ -11,9 +11,9 @@
       <desc lang="EN">Full port of ZXTune (r5112) for Daphile / Lyrion Music Server. Plays 120+ chiptune, tracker, and videogame music formats (ZX Spectrum AY/YM, C64 SID, NES NSF/NSFE, SNES SPC/RSN, GameBoy GBS, Genesis/Master System VGM/VGZ, PC Engine HES, MSX KSS, Atari SAP, PlayStation PSF/USF/GSF/2SF/SSF/DSF, Amiga MOD/XM/IT/S3M/AHX/HVL, archives .zip/.7z/.rar/.lha/.trd/.scl), streams Random Radio, and browses 14 online catalogues (ModArchive, ModLand, HVSC, ASMA, VGMRips, Khinsider, OCReMix, JoshW, ZX-Art, ZXTunes, AMP, Aminet, Scene.org, AYGOR).</desc>
       <desc lang="IT">Port completo di ZXTune (r5112) per Daphile / Lyrion Music Server. Riproduce oltre 120 formati chiptune, tracker e musica per videogiochi, archivi multi-traccia, radio casuale e 14 cataloghi online (ModArchive, ModLand, HVSC, ASMA, VGMRips, Khinsider, OCReMix, JoshW, ZX-Art, ZXTunes, AMP, Aminet, Scene.org, AYGOR).</desc>
       <url>https://github.com/Piernik-cpu/lms-zxtune/releases/download/v1.0.5130/ZXTune.zip</url>
-      <sha>aac47cd3e2ff50a56430d8b177de489ca4e2776c</sha>
+      <sha>200af660d607bcb48dbb744332ef31115bedf53a</sha>
       <link>https://github.com/Piernik-cpu/lms-zxtune</link>
-      <creator>ZXTune (Vitamin/CAIG) / LMS Port</creator>
+      <creator>Vitamin/CAIG (ZXTune), Piernik-cpu &amp; Antigravity (Google DeepMind AI)</creator>
       <category>musicservices</category>
       <icon>plugins/ZXTune/html/images/icon.png</icon>
     </plugin>
