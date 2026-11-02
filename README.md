@@ -33,11 +33,12 @@ Complete port of **ZXTune (`r5112`)** for **Daphile** and **Lyrion Music Server 
 
 ## Contributors & AI Transparency Disclosure
 
-We believe in full transparency regarding how this plugin was created:
+I believe in full transparency regarding how this plugin was created:
 
 - **[Vitamin/CAIG (Andrey)](https://zxtune.bitbucket.io/)** — Creator and maintainer of the upstream **[ZXTune](https://github.com/vitamin-caig/zxtune)** project (`r5112`), including the `zxtune123` decoding engine and the original virtual filesystem (`app.zxtune.fs.*`) architecture.
-- **[Piernik-cpu](https://github.com/Piernik-cpu)** — Project initiator, product direction, feature design, live hardware/Daphile server testing, debugging feedback, and repository maintainer.
+- **[Piernik-cpu](https://github.com/Piernik-cpu)** (myself)— Project initiator, product direction, feature design, live hardware/Daphile server testing, debugging feedback, and repository maintainer.
 - **Antigravity (Google DeepMind Advanced Agentic Coding)** — AI coding assistant and co-developer. In pair-programming sessions with **Piernik-cpu**, Antigravity authored the Lyrion Music Server / Daphile Perl plugin architecture (`Plugin.pm`, `ProtocolHandler.pm`, `Catalogs.pm`, `Metadata.pm`, `Settings.pm`), the `zxtune-play` streaming/transcoding pipeline, the HTML settings interface, the automatic game metadata/cover-art resolver, the compliance audit, and the automated packaging/publishing scripts.
+- I'll gladly accept any kind of help
 
 ## License
 Distributed under the **GNU General Public License v3.0 (GPL-3.0)**. See [LICENSE](LICENSE) and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for upstream ZXTune (`Vitamin/CAIG`) credits and source code links.
