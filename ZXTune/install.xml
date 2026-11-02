@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<extension>
+	<id>8A4E6F20-9C3B-4D1E-A7B2-5112005A5854</id>
+	<name>PLUGIN_ZXTUNE</name>
+	<module>Plugins::ZXTune::Plugin</module>
+	<version>1.0.5130</version>
+	<description>PLUGIN_ZXTUNE_DESC</description>
+	<creator>ZXTune (Vitamin/CAIG) / LMS Port</creator>
+	<homepageURL>https://zxtune.bitbucket.io/</homepageURL>
+	<defaultState>enabled</defaultState>
+	<type>2</type>
+	<icon>plugins/ZXTune/html/images/icon.png</icon>
+	<optionsURL>plugins/ZXTune/settings/basic.html</optionsURL>
+	<targetApplication>
+		<id>SqueezeCenter</id>
+		<minVersion>7.9.0</minVersion>
+		<maxVersion>*</maxVersion>
+	</targetApplication>
+</extension>
