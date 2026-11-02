@@ -30,3 +30,7 @@ In accordance with Section 6 of the GNU General Public License v3.0, the complet
 - This plugin does **not** bundle, host, or redistribute any copyrighted music tracks, ROMs, BIOS images, or cover art.
 - All online music catalogues (`ZXTunes.com`, `ZX-Art.ee`, `The Mod Archive`, `ModLand`, `HVSC`, `ASMA`, `AYGOR`, `JoshW`, `AMP`, `Aminet`, `Scene.org`, `VGMRips`, `Khinsider`, `OverClocked ReMix`) and online boxart thumbnails (`thumbnails.libretro.com`) are independent third-party services accessed on-demand directly by the user's server at the user's initiation, mirroring the virtual filesystem (`app.zxtune.fs.*`) of the upstream ZXTune application.
 - Users are responsible for complying with the terms of service of any third-party online catalogue they choose to access. Online cover art lookup for local files can be disabled at any time in **Settings -> Advanced -> Media Server -> ZXTune -> Automatic Online Cover Art for Local Games -> Offline Only**.
+
+## 4. Contributors & AI Development Disclosure
+- **Upstream ZXTune Engine (`r5112`)**: Created by **Vitamin/CAIG (Andrey)** (https://zxtune.bitbucket.io/).
+- **Daphile / Lyrion Music Server Plugin (`Plugins::ZXTune`)**: Directed, tested, and maintained by **Piernik-cpu** (https://github.com/Piernik-cpu), and pair-programmed with **Antigravity** (Google DeepMind Advanced Agentic Coding AI assistant), which generated the Perl plugin modules, shell transcoding wrapper, HTML templates, and packaging scripts.
