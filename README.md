@@ -1,6 +1,6 @@
 # ZXTune for Daphile & Lyrion Music Server (LMS)
 
-Complete port of **ZXTune (r5112)** for **Daphile** and **Lyrion Music Server (Logitech Media Server)** on `x86_64-linux`.
+Complete port of **ZXTune (`r5112`)** for **Daphile** and **Lyrion Music Server (Logitech Media Server)** on `x86_64-linux`.
 
 ## Features
 - **120+ Chiptune, Tracker & Video Game Music Formats**:
@@ -23,10 +23,21 @@ Complete port of **ZXTune (r5112)** for **Daphile** and **Lyrion Music Server (L
   - Continuous random radio streams across ModArchive, VGMRips, ZX-Art, ZXTunes, and Khinsider.
 
 ## Installation on Daphile / Lyrion Music Server
-1. Open **Settings -> Advanced -> Media Server -> Plugins** (or **Settings -> Plugins** in LMS).
+1. Open **Settings -> Advanced -> Media Server -> Settings -> Plugins** (or **Settings -> Plugins** in Lyrion Music Server).
 2. At the bottom of the page under **Additional Repositories**, add:
-   `https://raw.githubusercontent.com/<YOUR_GITHUB_USERNAME>/lms-zxtune/main/repo.xml`
+   ```text
+   https://raw.githubusercontent.com/Piernik-cpu/lms-zxtune/main/repo.xml
+   ```
 3. Click **Apply**, enable **ZXTune Chiptune & VGM Player**, and restart the media server when prompted.
+4. *(Note: Once [LMS-Community/lms-plugin-repository#90](https://github.com/LMS-Community/lms-plugin-repository/pull/90) is merged, ZXTune will also appear automatically in the built-in 3rd-party plugin list without needing to add the repository URL manually.)*
+
+## Contributors & AI Transparency Disclosure
+
+We believe in full transparency regarding how this plugin was created:
+
+- **[Vitamin/CAIG (Andrey)](https://zxtune.bitbucket.io/)** — Creator and maintainer of the upstream **[ZXTune](https://github.com/vitamin-caig/zxtune)** project (`r5112`), including the `zxtune123` decoding engine and the original virtual filesystem (`app.zxtune.fs.*`) architecture.
+- **[Piernik-cpu](https://github.com/Piernik-cpu)** — Project initiator, product direction, feature design, live hardware/Daphile server testing, debugging feedback, and repository maintainer.
+- **Antigravity (Google DeepMind Advanced Agentic Coding)** — AI coding assistant and co-developer. In pair-programming sessions with **Piernik-cpu**, Antigravity authored the Lyrion Music Server / Daphile Perl plugin architecture (`Plugin.pm`, `ProtocolHandler.pm`, `Catalogs.pm`, `Metadata.pm`, `Settings.pm`), the `zxtune-play` streaming/transcoding pipeline, the HTML settings interface, the automatic game metadata/cover-art resolver, the compliance audit, and the automated packaging/publishing scripts.
 
 ## License
 Distributed under the **GNU General Public License v3.0 (GPL-3.0)**. See [LICENSE](LICENSE) and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for upstream ZXTune (`Vitamin/CAIG`) credits and source code links.
